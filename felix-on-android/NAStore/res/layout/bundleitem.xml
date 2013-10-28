@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:orientation="vertical"
+  android:id="@+id/bundleItem" android:layout_height="?android:attr/listPreferredItemHeight" android:background="#fdfdfd">
+
+
+
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:paddingLeft="5dip" android:paddingRight="5dip" android:src="@drawable/module"></ImageView>
+	<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+		<TextView android:text="123123123123123123123123123123123123123" android:id="@+id/bundleTitleTv" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="left|center_vertical" android:textColor="#000000" android:textSize="20dip"></TextView>
+		<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right">
+			<Button android:id="@+id/startBundleBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="start"></Button>
+			<Button android:id="@+id/uninstallBundleBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="uninstall"></Button>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
+</FrameLayout>

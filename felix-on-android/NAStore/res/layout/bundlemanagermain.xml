@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:id="@+id/BundleListView"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical" 
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+<FrameLayout android:id="@+id/FrameLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:background="#dddddd">
+<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical|center_horizontal" android:height="30dip" android:gravity="center_vertical" android:textSize="18dip" android:textColor="#000000" android:text="Neosum.net - Application Store"></TextView>
+</FrameLayout>
+
+
+<HorizontalScrollView android:id="@+id/HorizontalScrollView01" android:layout_height="wrap_content" android:paddingLeft="10dip" android:paddingRight="10dip" android:background="#fdfdfd" android:layout_width="fill_parent">
+<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#fdfdfd" android:paddingTop="3dip" android:paddingBottom="5dip" android:id="@+id/tabItemContainer">
+
+</LinearLayout>
+</HorizontalScrollView>
+
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="5dip" android:background="#000000"></LinearLayout>
+
+<FrameLayout android:id="@+id/viewContainer" android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+<FrameLayout android:id="@+id/welcomeMessage" android:layout_height="fill_parent" android:layout_width="fill_parent" android:background="@drawable/background">
+<TextView android:id="@+id/TextView02" android:text="Welcome To NA Store!!" android:textColor="#ffffff" android:textSize="22dip" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_gravity="center"></TextView>
+</FrameLayout>
+
+</FrameLayout>
+
+
+</LinearLayout>

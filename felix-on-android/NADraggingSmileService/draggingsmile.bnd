@@ -1,0 +1,4 @@
+version=1
+Bundle-Activator: net.neosum.android.draggingsmile.NADraggingSmileActivator
+Export-Package: net.neosum.android.draggingsmile.*
+Bundle-Version:${version}

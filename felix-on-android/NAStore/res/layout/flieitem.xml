@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:orientation="vertical"
+  android:id="@+id/fileItem" android:layout_height="?android:attr/listPreferredItemHeight" android:background="#fdfdfd">
+
+
+
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:paddingLeft="5dip" android:paddingRight="5dip" android:src="@drawable/onebit_11"></ImageView>
+	<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+		<TextView android:text="123123123123123123123123123123123123123" android:id="@+id/fileTitleTv" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="left|center_vertical" android:textColor="#000000" android:textSize="20dip"></TextView>
+		<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="right">
+			<Button android:id="@+id/installFileBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="install"></Button>
+			<Button android:id="@+id/deleteFileBtn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="delete"></Button>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
+</FrameLayout>

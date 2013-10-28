@@ -1,0 +1,6 @@
+version=3
+Bundle-Activator: net.neosum.android.nadiary.impl.NADiaryActivator
+Export-Package: net.neosum.android.nadiary.*
+Bundle-Version:${version}
+
+ 
