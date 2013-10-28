@@ -1,0 +1,4 @@
+该demo为了演示插件与插件之间通过OSGI服务接口相互通讯的例子
+该demo为提供服务的插件
+须再plugin.xml文件添加导出包
+Export-Package="com.service"

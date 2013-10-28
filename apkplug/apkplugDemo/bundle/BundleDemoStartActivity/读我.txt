@@ -1,0 +1,1 @@
+该demo为了演示插件启动activity方式

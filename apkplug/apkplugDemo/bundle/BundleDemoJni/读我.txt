@@ -1,0 +1,3 @@
+该demo为了演示插件调用JNI库的例子
+plugin.xml 需要配置jni文件加载路径 
+Bundle-NativeCode="lib/armeabi/libndkhelloworld.so"
