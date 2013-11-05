@@ -22,6 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.loadresourcefromapk.StubActivity"
+            android:label="stub activity" >
+            <intent-filter>
+                <action android:name="android.intent.action.NOOP" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
