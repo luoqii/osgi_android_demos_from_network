@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.Menu;
 import android.view.View;
 
 public class StubContentActivity extends Activity {
@@ -126,8 +127,11 @@ public class StubContentActivity extends Activity {
         return super.onCreateView(parent, name, context, attrs);
     }
 
-    public void attachProxyContext(Context proxy) {
-        attachBaseContext(proxy);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
     }
 
 

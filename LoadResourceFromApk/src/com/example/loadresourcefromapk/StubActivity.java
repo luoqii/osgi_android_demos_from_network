@@ -2,20 +2,22 @@
 package com.example.loadresourcefromapk;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import android.app.Activity;
-import android.app.Application;
-import android.app.Instrumentation;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
+import android.content.ContextWrapper;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
 
+/**
+ * delegate our context to {@link StubActivity#mProxyActivity} to extract
+ * UI from it.
+ * 
+ * @see {@link android.content.ContextWrapper}
+ * @see <a href="http://en.wikipedia.org/wiki/Proxy_pattern">Proxy Pattern</a>
+ * @author bysong
+ *
+ */
 public class StubActivity extends Activity {
 
     private static final String TAG = StubActivity.class.getSimpleName();
@@ -24,27 +26,38 @@ public class StubActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        mProxyActivity = new StubContentActivity();
-//        attach();
-        copyFields();
-        mProxyActivity.onCreate(savedInstanceState);
+
+        {// order is important.
+            mProxyActivity = new StubContentActivity();
+            copyFields();
+            mProxyActivity.onCreate(savedInstanceState);
+        }
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
         mProxyActivity.onStart();
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
         mProxyActivity.onResume();
     }
-    
-    void copyFields() {
-        String[] copiedFields = new String[]{
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu) && mProxyActivity.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu) && mProxyActivity.onPrepareOptionsMenu(menu);
+    }
+
+    private void copyFields() {
+        String[] copiedFields = new String[] {
                 "mMainThread",
                 "mInstrumentation",
                 "mToken",
@@ -56,13 +69,15 @@ public class StubActivity extends Activity {
                 "mParent",
                 "mEmbeddedID",
                 "mLastNonConfigurationInstances",
-                "mFragments",//java.lang.IllegalStateException FragmentManagerImpl.moveToState
+                "mFragments",// java.lang.IllegalStateException
+                             // FragmentManagerImpl.moveToState
                 "mWindow",
                 "mWindowManager",
-        "mCurrentConfig"};
+                "mCurrentConfig"
+        };
         try {
             Class<?> ACTIVITY = Class.forName("android.app.Activity");
-            for (String f: copiedFields){
+            for (String f : copiedFields) {
                 Field declaredField = ACTIVITY.getDeclaredField(f);
                 setField(mProxyActivity, declaredField, getFiledValue(this, f));
             }
@@ -73,78 +88,6 @@ public class StubActivity extends Activity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-    
-    void attach() {
-        try {
-            Class AT = Class.forName("android.app.ActivityThread");
-            Class NFI = Class.forName("android.app.Activity$NonConfigurationInstances");
-            Class<?> ACTIVITY = Class.forName("android.app.Activity");
-//            ACTIVITY = mProxyActivity.getClass();
-//            Method[] methods = ACTIVITY.getMethods();
-//            for (Method m : methods) {
-//                Log.d(TAG, "m: " + m.getName());
-//            }
-//            Log.d(TAG, "getDeclaredMethods");
-//            methods = ACTIVITY.getDeclaredMethods();
-//            for (Method m : methods) {
-//                if (!m.getName().contains("att")) {
-//                    continue;
-//                }
-//                Log.d(TAG, "m: " + m.getName());
-//                Class<?>[] parameterTypes = m.getParameterTypes();
-//                for (Class c : parameterTypes) {
-//                    Log.d(TAG, "  p: " + c);
-//                }
-//            }
-            Method method = ACTIVITY.getDeclaredMethod("attach",
-                    new Class[]{
-                    Context.class, 
-                    AT, 
-                    Instrumentation.class,
-                    IBinder.class, 
-                    int.class,
-                    Application.class, 
-                    Intent.class,
-                    ActivityInfo.class, 
-                    CharSequence.class,
-                    Activity.class, 
-                    String.class,
-                    NFI,
-                    Configuration.class});
-            Object[] parameters = new Object[]{
-                    this,
-                    getFiledValue(this, "mMainThread"),
-                    getFiledValue(this, "mInstrumentation"),
-                    getFiledValue(this, "mToken"),
-                    getFiledValue(this, "mIdent"),
-                    getFiledValue(this, "mApplication"),
-                    getFiledValue(this, "mIntent"),
-                    getFiledValue(this, "mActivityInfo"),
-                    getFiledValue(this, "mTitle"),
-                    getFiledValue(this, "mParent"),
-                    getFiledValue(this, "mEmbeddedID"),
-                    getFiledValue(this, "mLastNonConfigurationInstances"),
-                    getFiledValue(this, "mCurrentConfig")
-            };
-            method.setAccessible(true);
-            method.invoke(mProxyActivity, parameters);
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        };
     }
 
     private void setField(Object object, Field field, Object value) {
@@ -180,7 +123,7 @@ public class StubActivity extends Activity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         Log.d(TAG, "getFiledValue(). fieldName: " + fieldName + " field: " + f);
         return f;
     }
